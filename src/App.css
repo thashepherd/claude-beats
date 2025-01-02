@@ -1,0 +1,37 @@
+.App {
+  text-align: center;
+  padding: 20px;
+}
+
+.controls {
+  margin: 20px 0;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.instrument-name {
+  width: 100px;
+  text-align: right;
+  padding-right: 20px;
+}
+
+.steps {
+  display: flex;
+  gap: 5px;
+}
+
+.step {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  background: none;
+  cursor: pointer;
+}
+
+.step.active {
+  background: #4CAF50;
+}
