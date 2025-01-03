@@ -10,6 +10,7 @@ Welcome to the Beat Maker Tool! This project is a web-based application that all
 - **Adjustable BPM**: Change the tempo of your beats easily.
 - **Track Management**: Set sounds for specific beats and create complex rhythms.
 - **Custom Audio Hook**: Efficiently manage audio playback and loading of sound files.
+- **Backing Instrumental Track**: Play a backing instrumental track from a YouTube URL.
 
 ## Project Structure
 
@@ -65,6 +66,12 @@ beat-maker
    ```
    npm start
    ```
+
+## Using the Backing Instrumental Track Feature
+
+1. Enter a YouTube URL in the input field provided in the Drum Machine interface.
+2. The backing instrumental track will start playing automatically.
+3. You can control the playback of the backing track using the play/pause button.
 
 ## License
 
