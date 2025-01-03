@@ -35,3 +35,10 @@
 .step.active {
   background: #4CAF50;
 }
+
+.pong-game {
+  width: 100%;
+  height: 100vh;
+  background: url('/starry-night-sky.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
