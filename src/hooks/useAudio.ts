@@ -1,7 +1,9 @@
 import { useCallback, useRef } from 'react';
+import YouTube from 'react-youtube';
 
 export const useAudio = () => {
     const audioCache = useRef<Map<string, HTMLAudioElement>>(new Map());
+    const youtubePlayer = useRef<any>(null);
 
     const playSound = useCallback((soundUrl: string) => {
         // Get absolute path from public folder
@@ -21,5 +23,22 @@ export const useAudio = () => {
         }
     }, []);
 
-    return { playSound };
+    const playYoutubeVideo = useCallback((videoId: string) => {
+        if (youtubePlayer.current) {
+            youtubePlayer.current.loadVideoById(videoId);
+            youtubePlayer.current.playVideo();
+        }
+    }, []);
+
+    const pauseYoutubeVideo = useCallback(() => {
+        if (youtubePlayer.current) {
+            youtubePlayer.current.pauseVideo();
+        }
+    }, []);
+
+    const onYoutubeReady = useCallback((event: any) => {
+        youtubePlayer.current = event.target;
+    }, []);
+
+    return { playSound, playYoutubeVideo, pauseYoutubeVideo, onYoutubeReady };
 };

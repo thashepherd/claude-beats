@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useAudio } from '../hooks/useAudio';
 import { instruments } from '../constants/instruments';
+import YouTube from 'react-youtube';
 
 const DrumMachine: React.FC = () => {
     const [bpm, setBpm] = useState(120);
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentBeat, setCurrentBeat] = useState(0);
     const [track, setTrack] = useState(Array(16).fill(null));
+    const [youtubeUrl, setYoutubeUrl] = useState('');
+    const [youtubePlayer, setYoutubePlayer] = useState<any>(null);
 
     const playSound = (instrument: string) => {
         const audio = new Audio(instrument);
@@ -17,6 +20,14 @@ const DrumMachine: React.FC = () => {
         setIsPlaying(!isPlaying);
     };
 
+    const handleYoutubeUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setYoutubeUrl(e.target.value);
+    };
+
+    const onYoutubeReady = (event: any) => {
+        setYoutubePlayer(event.target);
+    };
+
     useEffect(() => {
         let interval: NodeJS.Timeout;
         if (isPlaying) {
@@ -24,9 +35,16 @@ const DrumMachine: React.FC = () => {
                 setCurrentBeat((prev) => (prev + 1) % 16);
                 track[currentBeat] && playSound(track[currentBeat]);
             }, (60 / bpm) * 1000);
+            if (youtubePlayer) {
+                youtubePlayer.playVideo();
+            }
+        } else {
+            if (youtubePlayer) {
+                youtubePlayer.pauseVideo();
+            }
         }
         return () => clearInterval(interval);
-    }, [isPlaying, currentBeat, bpm, track]);
+    }, [isPlaying, currentBeat, bpm, track, youtubePlayer]);
 
     return (
         <div>
@@ -47,6 +65,17 @@ const DrumMachine: React.FC = () => {
                     min="60"
                     max="240"
                 />
+            </div>
+            <div>
+                <input
+                    type="text"
+                    value={youtubeUrl}
+                    onChange={handleYoutubeUrlChange}
+                    placeholder="Enter YouTube URL"
+                />
+                {youtubeUrl && (
+                    <YouTube videoId={youtubeUrl.split('v=')[1]} onReady={onYoutubeReady} />
+                )}
             </div>
             <div>
                 {/* Track representation will go here */}
